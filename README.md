@@ -7,7 +7,6 @@ Usage:
 var mocp = require('mocp');
 
 mocp.info(); // Print information about the currently playing file
-mocp.musicdir('/folder'); // Start in MusicDir
 mocp.append('/file.flac'); // Append the files/directories/playlists passed in the command line to playlist
 mocp.playit('/yourfile.flac'); // Play files given on the command line without modifying the playlist
 mocp.playlist('/yourlist.m3u'); // Play playlist
@@ -24,4 +23,3 @@ mocp.volume(100); // Adjust the PCM volume
 mocp.volumeUp(); // Increase volume
 mocp.volumeDown(); // Decrease volume
 ~~~~
-
