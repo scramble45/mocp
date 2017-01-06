@@ -74,10 +74,6 @@ exports.append = function(file) {
     cmdfile('-a', file);
 }
 
-exports.musicdir = function(file) {
-    cmdfile('-m', file);
-}
-
 exports.playit = function(file) {
     cmdfile('-l', file);
 }
