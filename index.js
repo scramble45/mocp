@@ -1,29 +1,10 @@
 // Rowan Hamilton
 // index.js
-// 2016
+// 2017
 
 var spawn = require('child_process').spawn;
 var volumeSetting = 10;
 
-/*
-mocp -S -start server
-
--q –enqueue Add the files given on command line to the queue.
--p –play Start playing from the first item on the playlist.
--l –playit Play files given on command line without modifying the
-playlist.
--s –stop Stop playing.
--f –next Play next song.
--r –previous Play previous song.
--x –exit Shutdown the server.
--G –toggle-pause Toggle between play/pause.
--v –volume (+/-)LEVEL Adjust PCM volume.
--k –seek N Seek by N seconds (can be negative).
--j –jump N{%,s} Jump to some position of the current track.
--o –on <controls> Turn on a control (shuffle, autonext, repeat).
--u –off <controls> Turn off a control (shuffle, autonext, repeat).
--t –toggle <controls> Toggle a control (shuffle, autonext, repeat)
-*/
 
 var start_server = function(){
     var exec = spawn('mocp', ['-S']);
@@ -53,10 +34,24 @@ var command = function(command){
         });
 }
 
-var playfile = function(command, file){
+var seek = function(command, seconds){
+    var exec = spawn('mocp', [command, seconds]);
+        exec.stdout.on('data', function(data) {
+            console.log(data.toString());
+        });
+}
+
+var cmdfile = function(command, file){
     var exec = spawn('mocp', [command, file]);
         exec.stdout.on('data', function(data) {
             console.log(data.toString());
+        });
+}
+
+var playlist = function(command, file){
+    var exec = spawn('mocp', [command, file, '-p']);
+        exec.stdout.on('data', function(data) {
+            console.log(data);
         });
 }
 
@@ -67,16 +62,56 @@ var volume_level = function(level){
         });
 }
 
+exports.version = function() {
+    command('-V');
+}
+
+exports.info = function() {
+    command('-i');
+}
+
+exports.append = function(file) {
+    cmdfile('-a', file);
+}
+
+exports.musicdir = function(file) {
+    cmdfile('-m', file);
+}
+
 exports.playit = function(file) {
-    playfile('-l', file);
+    cmdfile('-l', file);
+}
+
+exports.enqueue = function(file) {
+    cmdfile('-q', file);
+}
+
+exports.playlist = function(file) {
+    playlist('-a', file);
+}
+
+exports.clear = function() {
+    command('-c');
 }
 
 exports.play = function() {
     command('-p');
 }
 
+exports.seek = function(seconds) {
+    seek('-k', seconds);
+}
+
 exports.stop = function() {
     command('-s');
+}
+
+exports.suffle = function() {
+    command('-t s');
+}
+
+exports.repeat = function() {
+    command('-t r');
 }
 
 exports.next = function() {
