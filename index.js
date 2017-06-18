@@ -103,11 +103,11 @@ exports.stop = function() {
 }
 
 exports.suffle = function() {
-    command('-t s');
+    command('-ts');
 }
 
 exports.repeat = function() {
-    command('-t r');
+    command('-tr');
 }
 
 exports.next = function() {
