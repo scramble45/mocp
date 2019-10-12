@@ -1,6 +1,6 @@
 {
   "name": "mocp",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "a wrapper for moc player",
   "main": "index.js",
   "dependencies": {
